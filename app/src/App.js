@@ -1,23 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from "react";
+import "./App.css";
+import { getInfo } from "./clientInstance";
 
 function App() {
+  const [items, setItems] = useState([]);
+
+  const handleGetInfo = async () => {
+    const fetchedInfo = await getInfo();
+    setItems(fetchedInfo.data.amenityIndex.edges);
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <button onClick={handleGetInfo}>Get Info</button>
+      {items.map((item, index) => (
+        <div key={index}>
+          <p>Input: {index + 1}</p>
+          <p>ID: {item.node.id}</p>
+          <p>Location: {item.node.location}</p>
+          <p>Type: {item.node.type}</p>
+          <p>Operational Hours: {item.node.operationalHours}</p>
+        </div>
+      ))}
     </div>
   );
 }

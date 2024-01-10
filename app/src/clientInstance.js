@@ -27,3 +27,23 @@ async function authenticateDID(seed) {
   compose.setDID(did);
   return did;
 }
+
+export async function getInfo() {
+  const info = await compose.executeQuery(`
+        query {
+            amenityIndex(first:2){
+                edges{
+                    node{
+                        id
+                        location
+                        type
+                        operationalHours
+                    }
+                }
+            }
+        }
+    `);
+
+  console.log("info:", info.data.amenityIndex);
+  return info;
+}
