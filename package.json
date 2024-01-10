@@ -1,0 +1,6 @@
+{
+  "devDependencies": {
+    "@composedb/devtools": "^0.6.1",
+    "@composedb/devtools-node": "^0.6.1"
+  }
+}
